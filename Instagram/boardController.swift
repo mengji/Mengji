@@ -14,8 +14,6 @@ class boardController: UITableViewController {
     var usernames = [String]()
     var images = [UIImage]()
     var pffile = [PFFile]()
-    var objectId = [String]()
-    var comments = Array<Array<String>>()
     var refresher:UIRefreshControl!
     
     @IBAction func logout(sender: AnyObject) {
@@ -47,8 +45,6 @@ class boardController: UITableViewController {
                                 self.titles.append(object["Title"] as String)
                                 self.usernames.append(object["name"] as String)
                                 self.pffile.append(object["imageFile"] as PFFile)
-                                self.objectId.append(object.objectId as String)
-                                self.comments.append(object["comments"] as Array<String>)
                                 self.tableView.reloadData()
                             }
                         } else {
@@ -91,24 +87,23 @@ class boardController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var myCell: cell =  self.tableView.dequeueReusableCellWithIdentifier("myCell") as cell
         if (usernames.count > 0){
-            myCell.fillCell(objectId[indexPath.row], username: usernames[indexPath.row], title: titles[indexPath.row], file: pffile[indexPath.row],comment: comments[indexPath.row])
-            /*myCell.myText?.text = usernames[indexPath.row] + ": " + titles[indexPath.row]
+            myCell.myText?.text = usernames[indexPath.row] + ": " + titles[indexPath.row]
             pffile[indexPath.row].getDataInBackgroundWithBlock({
                 (imageData:NSData!,error:NSError!) in
                 if (error == nil){
                     let image = UIImage(data:imageData)
                     myCell.postedImage.image = image
-            
+                    
                     
                 }
-            })*/
+            })
         }
 
         return myCell
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 350
+        return 280
     }
     
     

@@ -260,14 +260,6 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NiG-jp-21a">
                                             <rect key="frame" x="14" y="43" width="292" height="172"/>
                                         </imageView>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Comments" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9ER-2h-ROR">
-                                            <rect key="frame" x="14" y="223" width="292" height="30"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                            <connections>
-                                                <action selector="comments:" destination="hiC-hi-5IF" eventType="editingDidEnd" id="abg-0k-CKl"/>
-                                            </connections>
-                                        </textField>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
@@ -295,7 +287,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vbr-HX-sVh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1090" y="304"/>
+            <point key="canvasLocation" x="1090" y="305"/>
         </scene>
         <!--Users-->
         <scene sceneID="6d6-PX-DkR">
