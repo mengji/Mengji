@@ -10,11 +10,16 @@ import UIKit
 
 class cell: UITableViewCell {
     
-
-    @IBOutlet var myText: UILabel!
-
+    
+    
+    
+    
+    
     @IBOutlet var postedImage: UIImageView!
     
 
+    @IBOutlet var myText: UILabel!
+    
+    
     
 }
