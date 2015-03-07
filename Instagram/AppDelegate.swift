@@ -1,4 +1,4 @@
-//
+	//
 //  AppDelegate.swift
 //  Instagram
 //
@@ -16,6 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        Parse.setApplicationId("nVWsfUTdiJ4ZXvc9ESKeLvjGnVtYwAbd0psqo7X3", clientKey: "8d5bt1XZDuJa9PqtiEHURvEKK38JEqPymZkoMERs")
+        
         return true
     }
 
