@@ -25,19 +25,11 @@ class users: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
         updateUsers()
-        
-        
         refresher = UIRefreshControl()
         refresher.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refresher.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refresher)
-        
-        
-        
-        
     }
     
     func updateUsers(){

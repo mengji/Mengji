@@ -14,6 +14,7 @@ class boardController: UITableViewController {
     var usernames = [String]()
     var images = [UIImage]()
     var pffile = [PFFile]()
+    var refresher:UIRefreshControl!
     
     @IBAction func logout(sender: AnyObject) {
         PFUser.logOut()
@@ -23,11 +24,10 @@ class boardController: UITableViewController {
         
     }
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        
+    func update(){
+        titles = [String]()
+        pffile = [PFFile]()
+        usernames = [String]()
         var getFollowingQuery = PFQuery(className: "followers")
         getFollowingQuery.whereKey("follower", equalTo: PFUser.currentUser().username)
         getFollowingQuery.findObjectsInBackgroundWithBlock({
@@ -53,12 +53,20 @@ class boardController: UITableViewController {
                     })
                 }
             }
+            self.refresher.endRefreshing()
         })
+    }
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        update()
         
-        
+        refresher = UIRefreshControl()
+        refresher.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refresher.addTarget(self, action: "update", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refresher)
 
-        
-        
         
     }
     override func didReceiveMemoryWarning() {
