@@ -8,6 +8,7 @@
 
 import UIKit
 
+<<<<<<< HEAD
 class ViewController: UIViewController, UINavigationControllerDelegate,UIImagePickerControllerDelegate {
     
     func displayAlert(title:String, error:String){
@@ -54,17 +55,13 @@ class ViewController: UIViewController, UINavigationControllerDelegate,UIImagePi
  
     @IBOutlet var usernameText: UITextField!
     @IBOutlet var passwordText: UITextField!
+=======
+class ViewController: UIViewController {
+>>>>>>> parent of 2c01c5b... Mengji
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        if PFUser.currentUser() != nil{
-            self.performSegueWithIdentifier("jumpToMain", sender: self)
-        }
+        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
