@@ -16,6 +16,7 @@ class boardController: UITableViewController {
     var pffile = [PFFile]()
     var refresher:UIRefreshControl!
     
+    //logout
     @IBAction func logout(sender: AnyObject) {
         PFUser.logOut()
         self.performSegueWithIdentifier("logout", sender: self)
@@ -24,10 +25,13 @@ class boardController: UITableViewController {
         
     }
     
+    //update other users' post information from server
     func update(){
         titles = [String]()
         pffile = [PFFile]()
         usernames = [String]()
+        
+        //find users which current user followed
         var getFollowingQuery = PFQuery(className: "followers")
         getFollowingQuery.whereKey("follower", equalTo: PFUser.currentUser().username)
         getFollowingQuery.findObjectsInBackgroundWithBlock({
@@ -36,6 +40,7 @@ class boardController: UITableViewController {
                 var followedUser = ""
                 for object in objects{
                     followedUser = object["following"] as String
+                    //find followed users' post
                     var query = PFQuery(className: "postImage")
                     query.whereKey("name", equalTo: followedUser)
                     query.findObjectsInBackgroundWithBlock({
@@ -79,6 +84,7 @@ class boardController: UITableViewController {
         return 1
     }
     
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return usernames.count
     }
@@ -86,15 +92,15 @@ class boardController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var myCell: cell =  self.tableView.dequeueReusableCellWithIdentifier("myCell") as cell
+        //add image and text to every cell
         if (usernames.count > 0){
             myCell.myText?.text = usernames[indexPath.row] + ": " + titles[indexPath.row]
+            //load image from pffile
             pffile[indexPath.row].getDataInBackgroundWithBlock({
                 (imageData:NSData!,error:NSError!) in
                 if (error == nil){
                     let image = UIImage(data:imageData)
                     myCell.postedImage.image = image
-                    
-                    
                 }
             })
         }

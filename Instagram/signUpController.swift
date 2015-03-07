@@ -17,6 +17,7 @@ class signUpController: UIViewController,UINavigationControllerDelegate,UIImageP
     @IBOutlet var lastname: UITextField!
     @IBOutlet var password: UITextField!
     
+    //display message in a new window
     func displayAlert(title:String,error:String){
         var alert = UIAlertController(title: title, message: error, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: {
@@ -25,17 +26,14 @@ class signUpController: UIViewController,UINavigationControllerDelegate,UIImageP
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
+    //submit new user information to database
     @IBAction func submit(sender: AnyObject) {
         var error = ""
-        
-        
         if (username.text == "" || firstname.text == ""||lastname.text == "" || password.text == ""){
             error = "Plase fill the form"
         }
         if error != "" {
-            
             displayAlert("Plase fill the form", error: error)
-            
         } else {
             var user = PFUser()
             user.username = username.text
@@ -43,6 +41,7 @@ class signUpController: UIViewController,UINavigationControllerDelegate,UIImageP
             user.setValue(firstname.text, forKey: "firstname")
             user.setValue(lastname.text, forKey: "lastname")
             
+            //ignore action during uploading
             activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0,0,50,50))
             activityIndicator.center = self.view.center
             activityIndicator.hidesWhenStopped = true

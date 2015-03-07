@@ -7,12 +7,8 @@
 //
 
 import UIKit
-
+//class cell to store image and text of every post
 class cell: UITableViewCell {
-    
-    
-    
-    
     
     
     @IBOutlet var postedImage: UIImageView!

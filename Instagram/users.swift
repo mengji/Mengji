@@ -17,7 +17,7 @@ class users: UITableViewController {
     
     var refresher:UIRefreshControl!
     
-    
+    //log out button
     @IBAction func logout(sender: AnyObject) {
         PFUser.logOut()
         self.performSegueWithIdentifier("logout",sender: self)
@@ -26,57 +26,46 @@ class users: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUsers()
+        //add the refresher to the view
         refresher = UIRefreshControl()
         refresher.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refresher.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refresher)
     }
     
+    //get data from database
     func updateUsers(){
         var query = PFUser.query()
-        
         query.findObjectsInBackgroundWithBlock({ (objects: [AnyObject]!, error: NSError!) -> Void in
-            
             self.users.removeAll(keepCapacity: true)
             
+            //get other users in database
             for object in objects {
-                
                 var user:PFUser = object as PFUser
-                
                 var isFollowing:Bool
-                
                 if user.username != PFUser.currentUser().username {
-                    
                     self.users.append(user.username)
-                    
                     isFollowing = false
-                    
                     var query = PFQuery(className:"followers")
                     query.whereKey("follower", equalTo:PFUser.currentUser().username)
                     query.whereKey("following", equalTo:user.username)
                     query.findObjectsInBackgroundWithBlock {
                         (objects: [AnyObject]!, error: NSError!) -> Void in
                         if error == nil {
-                            println(self.follow)
                             for object in objects {
-                                
                                 isFollowing = true
                             }
-                            
                             self.follow[user.username] = isFollowing
                             self.tableView.reloadData()
-                            
                         } else {
                             // Log details of the failure
                             println(error)
                         }
+                        //refresher stops after updating complete
                         self.refresher.endRefreshing()
                     }
-                    
                 }
-                
             }
-            
         })
     }
     
@@ -102,6 +91,7 @@ class users: UITableViewController {
         return users.count
     }
     
+    //add users name to every cell and check if followed
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell :UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cell") as UITableViewCell
         cell.textLabel?.text = users[indexPath.row]
@@ -114,7 +104,7 @@ class users: UITableViewController {
         
     }
     
-    
+    //If a cell is clicked, check if its followed and make checkmark appear properly
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var cell :UITableViewCell = self.tableView.cellForRowAtIndexPath(indexPath)!
         if (cell.accessoryType == UITableViewCellAccessoryType.Checkmark){

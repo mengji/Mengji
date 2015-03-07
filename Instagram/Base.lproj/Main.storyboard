@@ -316,11 +316,11 @@
             </objects>
             <point key="canvasLocation" x="468" y="-438"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="WiP-Ka-rZW">
             <objects>
                 <navigationController id="T0q-0h-dmb" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Yv2-9X-MgC"/>
+                    <tabBarItem key="tabBarItem" systemItem="contacts" id="Yv2-9X-MgC"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NDr-tU-bPB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -334,11 +334,11 @@
             </objects>
             <point key="canvasLocation" x="127" y="-438"/>
         </scene>
-        <!--Item-->
+        <!--Board-->
         <scene sceneID="CjF-l2-ODZ">
             <objects>
                 <navigationController id="15W-xZ-X0m" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="rZw-lw-fZb"/>
+                    <tabBarItem key="tabBarItem" title="Board" id="rZw-lw-fZb"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ejp-Wu-8rl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

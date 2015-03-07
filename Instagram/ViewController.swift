@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController, UINavigationControllerDelegate,UIImagePickerControllerDelegate {
     
+    //display alert window
     func displayAlert(title:String, error:String){
         var alert = UIAlertController(title: title, message: error, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: {
@@ -20,7 +21,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,UIImagePi
         self.presentViewController(alert, animated: true, completion: nil)
     }
 
-
+    //control login button
     @IBAction func loginButt(sender: AnyObject) {
         var error = ""
         
@@ -32,11 +33,11 @@ class ViewController: UIViewController, UINavigationControllerDelegate,UIImagePi
             displayAlert("Error", error: error)
             
         } else {
+            //login success
             PFUser.logInWithUsernameInBackground(usernameText.text, password:passwordText.text) {
                 (user: PFUser!, loginerror: NSError!) -> Void in
                 if loginerror == nil {
                     self.performSegueWithIdentifier("jumpToMain",sender: self)
-                    
                 } else {
                     if let errorString = loginerror.userInfo?["error"] as? NSString{
                         error = errorString
@@ -62,6 +63,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate,UIImagePi
     }
     
     override func viewDidAppear(animated: Bool) {
+        //jump to main interface if user is already logged in
         if PFUser.currentUser() != nil{
             self.performSegueWithIdentifier("jumpToMain", sender: self)
         }
