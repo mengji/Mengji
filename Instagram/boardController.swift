@@ -14,6 +14,10 @@ class boardController: UITableViewController {
     var usernames = [String]()
     var images = [UIImage]()
     var pffile = [PFFile]()
+    var refresher:UIRefreshControl!
+    var objectId = [String]()
+    
+    
     
     @IBAction func logout(sender: AnyObject) {
         PFUser.logOut()
@@ -23,11 +27,10 @@ class boardController: UITableViewController {
         
     }
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        
+    func refresh(){
+        titles = [String]()
+        usernames = [String]()
+        pffile = [PFFile]()
         var getFollowingQuery = PFQuery(className: "followers")
         getFollowingQuery.whereKey("follower", equalTo: PFUser.currentUser().username)
         getFollowingQuery.findObjectsInBackgroundWithBlock({
@@ -47,20 +50,25 @@ class boardController: UITableViewController {
                                 self.pffile.append(object["imageFile"] as PFFile)
                                 self.tableView.reloadData()
                             }
-                        } else {
                             
                         }
+                        self.refresher.endRefreshing()
                     })
                 }
             }
         })
-        
-        
-
-        
-        
-        
     }
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        refresh()
+        refresher = UIRefreshControl()
+        refresher.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refresher.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refresher)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -78,15 +86,15 @@ class boardController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var myCell: cell =  self.tableView.dequeueReusableCellWithIdentifier("myCell") as cell
+        
         if (usernames.count > 0){
+            
             myCell.myText?.text = usernames[indexPath.row] + ": " + titles[indexPath.row]
             pffile[indexPath.row].getDataInBackgroundWithBlock({
                 (imageData:NSData!,error:NSError!) in
                 if (error == nil){
                     let image = UIImage(data:imageData)
                     myCell.postedImage.image = image
-                    
-                    
                 }
             })
         }

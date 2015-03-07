@@ -141,11 +141,6 @@ class userTableController: UITableViewController {
                 cell.accessoryType = UITableViewCellAccessoryType.Checkmark
             }
         }
-        /*if follow.count > indexPath.row{
-            if follow[indexPath.row] == true{
-                cell.accessoryType = UITableViewCellAccessoryType.Checkmark
-            }
-        }*/
         return cell
 
     }
