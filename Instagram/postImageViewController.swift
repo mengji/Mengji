@@ -44,6 +44,7 @@ class postImageViewController: UIViewController, UINavigationControllerDelegate,
             var post = PFObject(className: "postImage")
             post["Title"] = text.text
             post["name"] = PFUser.currentUser().username
+            post["comments"] = Array<String>()
             post.saveInBackgroundWithBlock({
                 (success:Bool!, error:NSError!) in
                 if success == false {
